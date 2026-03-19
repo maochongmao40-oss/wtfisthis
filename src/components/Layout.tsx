@@ -7,28 +7,32 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
       <div className="fixed top-0 left-0 w-full h-2 bg-primary z-50" />
       
       {/* Mobile Top Header */}
-      <header className="lg:hidden fixed top-0 left-0 w-full bg-background border-b-2 border-foreground z-40 px-6 py-4 flex justify-between items-center">
-        <span className="font-black uppercase tracking-tighter">UnknownCrystal</span>
-        <div className="flex gap-4 font-black text-[10px] uppercase">
-          <a href="#hero">Intro</a>
-          <a href="#about">About</a>
-          <a href="#chat">Chat</a>
+      <header className="lg:hidden fixed top-0 left-0 w-full bg-background border-b-4 border-foreground z-40 px-6 py-4 flex justify-between items-center">
+        <span className="font-black uppercase tracking-tighter text-xl">UNKNOWN<br/>CRYSTAL</span>
+        <div className="flex gap-4 font-black text-xs uppercase tracking-widest">
+          <a href="#hero">INTRO</a>
+          <a href="#about">ABOUT</a>
+          <a href="#works">WORKS</a>
+          <a href="#chat">CHAT</a>
+          <a href="#contact">CONTACT</a>
         </div>
       </header>
 
       {/* Sidebar Navigation (Desktop) */}
-      <nav className="fixed left-0 top-0 h-full w-12 border-r-2 border-foreground bg-background hidden lg:flex flex-col items-center justify-between py-12 z-40 uppercase font-black text-xs [writing-mode:vertical-rl] tracking-widest">
-        <span>© 2026 UnknownCrystal</span>
+      <nav className="fixed left-0 top-0 h-full w-16 border-r-4 border-foreground bg-background hidden lg:flex flex-col items-center justify-between py-12 z-40 uppercase font-black text-sm [writing-mode:vertical-rl] tracking-widest">
+        <span>© 2026 UNKNOWNCRYSTAL</span>
         <div className="flex gap-12">
-          <a href="#hero" className="hover:text-primary transition-colors">Intro</a>
-          <a href="#about" className="hover:text-primary transition-colors">About</a>
-          <a href="#chat" className="hover:text-primary transition-colors">Digital Twin</a>
+          <a href="#hero" className="hover:text-primary transition-colors">INTRO</a>
+          <a href="#about" className="hover:text-primary transition-colors">ABOUT</a>
+          <a href="#works" className="hover:text-primary transition-colors">WORKS</a>
+          <a href="#chat" className="hover:text-primary transition-colors">DIGITAL TWIN</a>
+          <a href="#contact" className="hover:text-primary transition-colors">CONTACT</a>
         </div>
-        <span>Swiss Style Personal Page</span>
+        <span>SWISS STYLE PERSONAL PAGE</span>
       </nav>
 
       {/* Main Content Area */}
-      <main className="lg:pl-12 pt-[60px] lg:pt-0">
+      <main className="lg:pl-16 pt-[80px] lg:pt-0">
         {children}
       </main>
 

@@ -1,62 +1,46 @@
 import React from 'react';
-import { Badge } from '@/components/ui/badge';
 
 const About = () => {
   const interests = [
-    "vibe coding", "户外运动", "当代艺术", "techno 音乐", "赛博朋克2077", 
-    "国际交换项目", "社交媒体", "城市探索", "爵士乐", "house music", 
-    "长跑", "纪录片", "独立电影", "人类学", "LGBTQ+ 权利", "冥想"
+    "VIBE CODING", "OUTDOOR SPORTS", "CONTEMPORARY ART", "TECHNO MUSIC", "CYBERPUNK 2077", 
+    "INTERNATIONAL EXCHANGE", "SOCIAL MEDIA", "URBAN EXPLORATION", "JAZZ", "HOUSE MUSIC", 
+    "LONG DISTANCE RUNNING", "DOCUMENTARIES", "INDIE FILMS", "ANTHROPOLOGY", "LGBTQ+ RIGHTS", "MEDITATION"
   ];
 
   const infoGroups = [
-    { label: "身份", content: "大学生" },
-    { label: "正在做的事", content: "vibe coding（文科生，愿意尝试代码）、想学 Blender、探索 AI 与视觉结合" },
-    { label: "擅长与关心的方向", content: "艺术设计、游戏设计、市场营销、平面设计" }
+    { label: "IDENTITY", content: "UNIVERSITY STUDENT" },
+    { label: "CURRENT FOCUS", content: "VIBE CODING, EXPLORING BLENDER, MERGING AI WITH VISUAL ARTS" },
+    { label: "EXPERTISE", content: "ART DESIGN, GAME DESIGN, MARKETING, GRAPHIC DESIGN" }
   ];
 
   return (
-    <section className="p-6 md:p-24 bg-background border-b-4 border-foreground grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-24">
-      <div className="md:col-span-5 flex flex-col justify-center">
-        <h2 className="text-6xl md:text-[100px] font-black uppercase tracking-tighter mb-12 leading-[0.8] relative">
-          关于我<br />About
-          <div className="absolute -top-4 -left-4 w-12 h-12 bg-primary -z-10" />
+    <section className="bg-background flex flex-col font-sans">
+      <div className="border-b-4 border-foreground p-6 md:p-12 bg-primary">
+        <h2 className="text-[20vw] font-black uppercase tracking-tighter leading-[0.75] text-primary-foreground m-0">
+          ABOUT
         </h2>
-        <div className="space-y-12">
+      </div>
+      
+      <div className="grid grid-cols-1 lg:grid-cols-2 border-b-4 border-foreground">
+        <div className="border-b-4 lg:border-b-0 lg:border-r-4 border-foreground flex flex-col text-left">
           {infoGroups.map((group, index) => (
-            <div key={index} className="border-l-8 border-primary pl-8 py-2 hover:bg-secondary/50 transition-colors">
-              <span className="block text-sm uppercase font-black text-muted-foreground mb-2 tracking-widest">
-                {group.label}
-              </span>
-              <p className="text-xl md:text-3xl font-black leading-tight uppercase">
-                {group.content}
-              </p>
+            <div key={index} className="border-b-4 border-foreground p-8 md:p-14 lg:p-20 last:border-b-0 flex flex-col justify-start">
+              <h4 className="text-4xl md:text-5xl lg:text-6xl font-black uppercase tracking-tighter text-primary mb-4 leading-none">{group.label}</h4>
+              <p className="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-tight leading-[1.4] text-foreground">{group.content}</p>
             </div>
           ))}
         </div>
-      </div>
-
-      <div className="md:col-span-7 flex flex-col justify-center">
-        <div className="bg-primary p-8 md:p-16 h-full border-4 border-foreground shadow-[24px_24px_0px_0px_rgba(0,0,0,1)] relative overflow-hidden group">
-          <div className="absolute top-0 right-0 w-48 h-48 bg-background rotate-45 translate-x-1/2 -translate-y-1/2 border-l-4 border-foreground" />
-          
-          <h3 className="text-3xl md:text-5xl font-black uppercase mb-12 relative z-10 tracking-tight">
-            兴趣标签 / INTERESTS
-          </h3>
-          
-          <div className="flex flex-wrap gap-4 relative z-10">
+        
+        <div className="bg-background p-8 md:p-14 lg:p-20 overflow-hidden">
+          <h3 className="text-5xl md:text-7xl font-black uppercase tracking-tighter mb-16 pb-6 border-b-4 border-foreground text-primary">INTERESTS</h3>
+          <div className="flex flex-wrap gap-x-6 gap-y-4">
             {interests.map((interest, index) => (
-              <Badge 
-                key={index} 
-                variant="outline" 
-                className="bg-background text-foreground border-4 border-foreground hover:bg-black hover:text-white px-6 py-3 text-lg md:text-xl font-black transition-all cursor-default uppercase rounded-none"
-              >
-                {interest}
-              </Badge>
+              <span key={index} className="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-tight hover:text-primary transition-colors cursor-default leading-tight">
+                {interest.replace(' ', '\u00A0')}
+                {index < interests.length - 1 && <span className="text-foreground/30 mx-4">/</span>}
+              </span>
             ))}
           </div>
-
-          {/* Decorative Swiss Grid */}
-          <div className="absolute bottom-0 right-0 w-32 h-32 opacity-10 bg-grid-pattern bg-grid-size" />
         </div>
       </div>
     </section>

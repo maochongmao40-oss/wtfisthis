@@ -1,8 +1,4 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardContent, CardFooter, CardTitle } from '@/components/ui/card';
-import { Loader2, Send, Sparkles } from 'lucide-react';
 import { sendStreamRequest } from '@/lib/stream-utils';
 
 interface Message {
@@ -15,7 +11,7 @@ const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
 const Chat = () => {
   const [messages, setMessages] = useState<Message[]>([
-    { role: 'assistant', content: '嗨！我是 UnknownCrystal 的数字分身。你可以问我关于我的兴趣、我正在做的事，或者一些脑洞大开的问题。' }
+    { role: 'assistant', content: 'HELLO. I AM THE DIGITAL TWIN OF UNKNOWNCRYSTAL. ASK ME ABOUT MY INTERESTS, MY PROJECTS, OR ANY WILD IDEAS.' }
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -23,9 +19,9 @@ const Chat = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   const presetQuestions = [
-    "你为什么要做这个网站",
-    "你希望你的三十岁是怎样的",
-    "你有哪些超能力"
+    "WHY DID YOU BUILD THIS SITE?",
+    "WHAT ARE YOUR GOALS FOR AGE 30?",
+    "WHAT ARE YOUR SUPERPOWERS?"
   ];
 
   useEffect(() => {
@@ -38,7 +34,7 @@ const Chat = () => {
     if (!input.trim() || isLoading) return;
     
     if (input.length > 200) {
-      alert('最多输入 200 个字符');
+      alert('MAXIMUM 200 CHARACTERS ALLOWED');
       return;
     }
 
@@ -62,132 +58,124 @@ const Chat = () => {
         },
         supabaseAnonKey: SUPABASE_ANON_KEY,
         onData: (data: string) => {
-          console.log('收到原始数据:', data);
           try {
             const parsed = JSON.parse(data);
-            console.log('解析后的数据:', parsed);
             const chunk = parsed.choices?.[0]?.delta?.content || '';
-            console.log('提取的内容块:', chunk);
             if (chunk) {
               accumulatedContent += chunk;
               setStreamingContent(accumulatedContent);
             }
           } catch (error) {
-            console.error('解析流式数据错误:', error, '原始数据:', data);
+            console.error('Parse error:', error);
           }
         },
         onComplete: () => {
           setMessages(prev => [...prev, { 
             role: 'assistant', 
-            content: accumulatedContent || '数字分身暂时走神了，请稍后再试' 
+            content: accumulatedContent || 'THE DIGITAL TWIN IS CURRENTLY DAYDREAMING. PLEASE TRY AGAIN LATER.' 
           }]);
           setStreamingContent('');
           setIsLoading(false);
         },
         onError: (error: Error) => {
-          console.error('请求错误:', error);
+          console.error('Request error:', error);
           setMessages(prev => [...prev, { 
             role: 'assistant', 
-            content: '数字分身暂时走神了，请稍后再试' 
+            content: 'THE DIGITAL TWIN IS CURRENTLY DAYDREAMING. PLEASE TRY AGAIN LATER.' 
           }]);
           setStreamingContent('');
           setIsLoading(false);
         }
       });
     } catch (error) {
-      console.error('发送消息错误:', error);
+      console.error('Send error:', error);
       setMessages(prev => [...prev, { 
         role: 'assistant', 
-        content: '数字分身暂时走神了，请稍后再试' 
+        content: 'THE DIGITAL TWIN IS CURRENTLY DAYDREAMING. PLEASE TRY AGAIN LATER.' 
       }]);
       setIsLoading(false);
     }
   };
 
   return (
-    <section className="p-6 md:p-12 bg-primary border-t-2 border-foreground min-h-screen flex flex-col items-center justify-center">
-      <div className="max-w-4xl w-full">
-        <h2 className="text-4xl md:text-6xl font-black uppercase tracking-tighter mb-8 leading-none flex items-center gap-4">
-          数字分身 <Sparkles className="w-8 h-8 md:w-16 md:h-16" />
-        </h2>
+    <section className="bg-background min-h-[80vh] flex flex-col font-sans border-b-4 border-foreground">
+      <div className="grid grid-cols-1 lg:grid-cols-12 flex-1">
         
-        <Card className="rounded-none border-4 border-foreground shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] bg-background h-[600px] flex flex-col relative overflow-hidden">
-          <CardHeader className="border-b-4 border-foreground bg-primary p-4">
-            <CardTitle className="text-xl md:text-2xl font-black uppercase tracking-tight">
-              Chat with Digital UnknownCrystal
-            </CardTitle>
-          </CardHeader>
-          
-          <CardContent 
-            className="flex-1 overflow-y-auto p-6 space-y-4 bg-grid-pattern bg-grid-size" 
-            ref={scrollRef}
-          >
-            {messages.map((msg, index) => (
-              <div 
-                key={index} 
-                className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
+        {/* Sidebar for Title and Presets */}
+        <div className="col-span-12 lg:col-span-4 border-b-4 lg:border-b-0 lg:border-r-4 border-foreground bg-primary text-primary-foreground p-8 md:p-14 lg:p-20 flex flex-col justify-between">
+          <div>
+            <h2 className="text-[15vw] lg:text-[7vw] font-black uppercase tracking-tighter leading-[0.8] mb-12">
+              DIGITAL<br/>TWIN
+            </h2>
+          </div>
+          <div className="space-y-4">
+            <p className="font-black uppercase tracking-widest border-b-4 border-foreground pb-4 mb-8">FREQUENTLY ASKED:</p>
+            {presetQuestions.map((q, i) => (
+              <button 
+                key={i} 
+                onClick={() => setInput(q)} 
+                className="block w-full text-left font-black text-3xl lg:text-4xl uppercase tracking-tighter leading-[1.0] hover:bg-foreground hover:text-background p-4 border-4 border-transparent hover:border-foreground transition-all"
               >
-                <div 
-                  className={`max-w-[80%] px-5 py-3 font-bold rounded-[20px] ${
-                    msg.role === 'user' ? 'bg-primary text-foreground' : 'bg-secondary text-foreground'
-                  }`}
-                >
-                  {msg.content}
-                </div>
-              </div>
+                {q}
+              </button>
             ))}
-            {streamingContent && (
-              <div className="flex justify-start">
-                <div className="max-w-[80%] px-5 py-3 font-bold rounded-[20px] bg-secondary text-foreground">
-                  {streamingContent}
-                </div>
-              </div>
-            )}
-            {isLoading && !streamingContent && (
-              <div className="flex justify-start">
-                <div className="bg-secondary px-5 py-3 rounded-[20px] flex items-center gap-2">
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                  <span className="font-bold">思考中...</span>
-                </div>
-              </div>
-            )}
-          </CardContent>
-
-          <CardFooter className="p-4 border-t-4 border-foreground bg-background">
-            <form 
-              onSubmit={(e) => { e.preventDefault(); handleSend(); }}
-              className="flex w-full gap-4"
-            >
-              <Input 
-                className="flex-1 rounded-full border-2 border-foreground h-12 text-lg font-bold focus-visible:ring-primary focus-visible:ring-offset-0 placeholder:text-muted-foreground/50 px-6"
-                placeholder="向数字分身提问..."
-                value={input}
-                onChange={(e) => setInput(e.target.value)}
-                disabled={isLoading}
-              />
-              <Button 
-                type="submit"
-                className="bg-primary hover:bg-accent border-2 border-foreground transition-colors disabled:opacity-50 h-12 w-12 rounded-full p-0 flex items-center justify-center"
-                disabled={isLoading || !input.trim()}
-              >
-                <Send className="w-5 h-5" />
-              </Button>
-            </form>
-          </CardFooter>
-        </Card>
-
-        <div className="mt-8 flex flex-wrap gap-4">
-          {presetQuestions.map((q, i) => (
-            <Button 
-              key={i}
-              variant="outline"
-              onClick={() => setInput(q)}
-              className="bg-background hover:bg-secondary border-2 border-foreground px-4 py-2 font-black text-sm uppercase transition-colors rounded-none h-auto"
-            >
-              {q}
-            </Button>
-          ))}
+          </div>
         </div>
+
+        {/* Chat Area */}
+        <div className="col-span-12 lg:col-span-8 flex flex-col bg-background relative overflow-hidden h-[80vh] lg:h-auto">
+          <div className="flex-1 overflow-y-auto p-8 md:p-14 lg:p-20 flex flex-col space-y-16" ref={scrollRef}>
+             {messages.map((msg, idx) => (
+               <div key={idx} className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}>
+                 <span className={`text-sm md:text-base font-black uppercase tracking-widest mb-3 px-3 py-1 border-4 ${msg.role === 'user' ? 'bg-primary border-primary text-primary-foreground' : 'bg-foreground border-foreground text-background'}`}>
+                   {msg.role}
+                 </span>
+                 <p className={`text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-wide leading-relaxed max-w-[90%] whitespace-pre-wrap ${msg.role === 'user' ? 'text-primary text-right' : 'text-foreground'}`}>
+                   {msg.content}
+                 </p>
+               </div>
+             ))}
+             {streamingContent && (
+               <div className="flex flex-col items-start bg-background">
+                 <span className="text-sm md:text-base font-black uppercase tracking-widest mb-3 px-3 py-1 bg-foreground text-background border-4 border-foreground">
+                   ASSISTANT
+                 </span>
+                 <p className="text-lg md:text-xl lg:text-2xl font-bold uppercase tracking-wide leading-relaxed max-w-[90%] whitespace-pre-wrap text-foreground">
+                   {streamingContent}
+                 </p>
+               </div>
+             )}
+             {isLoading && !streamingContent && (
+               <div className="flex flex-col items-start mt-8">
+                 <span className="text-sm md:text-lg font-black uppercase tracking-widest mb-4 px-3 py-1 bg-foreground text-background border-4 border-foreground">
+                   SYSTEM
+                 </span>
+                 <div className="w-16 h-16 bg-primary animate-ping" />
+               </div>
+             )}
+          </div>
+          
+          {/* Input row */}
+          <div className="border-t-4 border-foreground z-10">
+             <form className="flex h-24 md:h-32 focus-within:ring-4 ring-primary" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
+               <input 
+                 className="flex-1 bg-background text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter p-6 md:p-8 placeholder:text-muted-foreground outline-none w-full"
+                 placeholder="ASK THE DIGITAL TWIN..."
+                 value={input}
+                 onChange={e => setInput(e.target.value)}
+                 disabled={isLoading}
+               />
+               <button 
+                 type="submit" 
+                 disabled={isLoading || !input.trim()}
+                 className="bg-primary text-primary-foreground text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-tighter px-8 md:px-16 hover:bg-foreground hover:text-background transition-colors border-l-4 border-foreground disabled:opacity-50 cursor-pointer"
+               >
+                 SEND
+               </button>
+             </form>
+          </div>
+        </div>
+
       </div>
     </section>
   );
