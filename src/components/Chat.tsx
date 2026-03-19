@@ -128,7 +128,7 @@ const Chat = () => {
                 className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}
               >
                 <div 
-                  className={`max-w-[80%] p-4 border-2 border-foreground font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] ${
+                  className={`max-w-[80%] px-5 py-3 font-bold rounded-[20px] ${
                     msg.role === 'user' ? 'bg-primary text-foreground' : 'bg-secondary text-foreground'
                   }`}
                 >
@@ -138,14 +138,14 @@ const Chat = () => {
             ))}
             {streamingContent && (
               <div className="flex justify-start">
-                <div className="max-w-[80%] p-4 border-2 border-foreground font-bold shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] bg-secondary text-foreground">
+                <div className="max-w-[80%] px-5 py-3 font-bold rounded-[20px] bg-secondary text-foreground">
                   {streamingContent}
                 </div>
               </div>
             )}
             {isLoading && !streamingContent && (
               <div className="flex justify-start">
-                <div className="bg-secondary border-2 border-foreground p-4 shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] flex items-center gap-2">
+                <div className="bg-secondary px-5 py-3 rounded-[20px] flex items-center gap-2">
                   <Loader2 className="w-5 h-5 animate-spin" />
                   <span className="font-bold">思考中...</span>
                 </div>

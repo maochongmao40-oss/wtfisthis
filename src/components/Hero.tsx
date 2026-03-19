@@ -17,11 +17,11 @@ const Hero = () => {
       </div>
       
       <div className="max-w-6xl z-10 mt-48">
-        <h1 className="text-7xl md:text-[180px] font-black uppercase tracking-tighter leading-[0.75] mb-8 select-none">
+        <h1 className="text-4xl md:text-[90px] font-black uppercase tracking-tighter leading-[0.75] mb-8 select-none">
           Unknown<br /><span className="text-background stroke-2 stroke-foreground" style={{ WebkitTextStroke: '2px black' }}>Crystal</span>
         </h1>
         <div className="flex flex-col md:flex-row gap-8 items-start md:items-end">
-          <p className="text-2xl md:text-5xl font-black max-w-2xl leading-none uppercase">
+          <p className="text-lg md:text-2xl font-black max-w-2xl leading-none uppercase">
             一个正在学习用 AI 参与艺术创作（包括平面视觉，音乐，游戏）的大学生
           </p>
           <div className="hidden md:block w-32 h-[2px] bg-foreground mb-4" />
