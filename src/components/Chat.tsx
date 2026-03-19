@@ -159,7 +159,7 @@ const Chat = () => {
               className="flex w-full gap-4"
             >
               <Input 
-                className="flex-1 rounded-none border-2 border-foreground h-12 text-lg font-bold focus-visible:ring-primary focus-visible:ring-offset-0 placeholder:text-muted-foreground/50"
+                className="flex-1 rounded-full border-2 border-foreground h-12 text-lg font-bold focus-visible:ring-primary focus-visible:ring-offset-0 placeholder:text-muted-foreground/50 px-6"
                 placeholder="向数字分身提问..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -167,10 +167,10 @@ const Chat = () => {
               />
               <Button 
                 type="submit"
-                className="bg-primary hover:bg-accent border-2 border-foreground p-3 transition-colors disabled:opacity-50 h-12 w-12 rounded-none"
+                className="bg-primary hover:bg-accent border-2 border-foreground transition-colors disabled:opacity-50 h-12 w-12 rounded-full p-0 flex items-center justify-center"
                 disabled={isLoading || !input.trim()}
               >
-                <Send className="w-6 h-6" />
+                <Send className="w-5 h-5" />
               </Button>
             </form>
           </CardFooter>
