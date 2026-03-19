@@ -11,8 +11,7 @@ const About = () => {
   const infoGroups = [
     { label: "身份", content: "大学生" },
     { label: "正在做的事", content: "vibe coding（文科生，愿意尝试代码）、想学 Blender、探索 AI 与视觉结合" },
-    { label: "擅长与关心的方向", content: "艺术设计、游戏设计、市场营销、平面设计" },
-    { label: "记忆点", content: "矮矮的，但特别阳光特别可爱" }
+    { label: "擅长与关心的方向", content: "艺术设计、游戏设计、市场营销、平面设计" }
   ];
 
   return (
